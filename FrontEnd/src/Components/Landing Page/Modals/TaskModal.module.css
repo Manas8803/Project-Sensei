@@ -1,0 +1,41 @@
+.formT {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.labelT {
+  margin-bottom: 8px;
+  display: block;
+}
+
+.inputT,
+.selectT,
+.textareaT {
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.textareaT {
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 100px;
+}
+
+.selectT {
+  width: 100%;
+}
+
+.buttonT {
+  padding: 8px 16px;
+  margin-right: 2rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 16px;
+}

@@ -1,0 +1,11 @@
+.subgen {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  text-align: center;
+  color: white;
+}
+
+
+.bg {
+  padding: 0 100px 0.7rem auto;
+}

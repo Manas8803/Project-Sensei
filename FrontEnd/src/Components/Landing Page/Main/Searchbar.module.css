@@ -1,0 +1,27 @@
+.searchbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.taskbtn {
+  display: flex;
+  margin-left: 2rem;
+  border: 1px solid #ccc;
+  margin-right: 1rem;
+}
+
+.searchContainer {
+  display: flex;
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.searchInput {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 13.5rem;
+}
