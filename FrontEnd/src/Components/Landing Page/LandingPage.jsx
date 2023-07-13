@@ -12,6 +12,7 @@ const LandingPage = () => {
 		name: "",
 		description: "",
 	});
+	const [p_id, setP_id] = useState();
 
 	const [taskData, setTaskData] = useState({
 		name: "",
@@ -24,22 +25,19 @@ const LandingPage = () => {
 
 	const p_HandleSubmit = async (e) => {
 		e.preventDefault();
-		// const token = localStorage.getItem("token");
+		const token = localStorage.getItem("token");
 
 		//? Api Calls
 		//&  1. Create project
-		const token =
-			"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YWVhZDEwMDhhOTFjMjFmZjZmYmUzZSIsIm5hbWUiOiJNYW5hcyBTYWhhIiwiaWF0IjoxNjg5MjcwMjg2LCJleHAiOjE2OTE4NjIyODZ9.6L1L7--vcUdcrRz6GTVcGNdYUba3DQTBqNU9-Dn59Fw";
 		const header = {
 			Authorization: `Bearer ${token}`,
 		};
 		try {
-			const { data } = await axios.post(
+			await axios.post(
 				"http://localhost:3000/user/login/projects/",
 				projectData,
 				{ headers: header }
 			);
-			setAllp_Data(data.project);
 		} catch (error) {
 			console.log(error);
 		}
@@ -50,6 +48,7 @@ const LandingPage = () => {
 				"http://localhost:3000/user/login/projects/",
 				{ headers: header }
 			);
+			console.log(data.project);
 			setAllp_Data(data.project);
 		} catch (error) {
 			console.log(error);
@@ -58,10 +57,32 @@ const LandingPage = () => {
 
 	const t_HandleSubmit = async (e) => {
 		e.preventDefault();
-		console.log("Task Handle Submit");
 		//? Api Calls
 		//&  1. Create task
+		const token = localStorage.getItem("token");
+		const header = {
+			Authorization: `Bearer ${token}`,
+		};
+		try {
+			await axios.post(
+				`http://localhost:3000/user/login/projects/tasks/${p_id}`,
+				taskData,
+				{ headers: header }
+			);
+		} catch (error) {
+			console.log(error);
+		}
 		//&  2. Get all tasks
+		try {
+			const { data } = await axios.get(
+				`http://localhost:3000/user/login/projects/tasks/${p_id}`,
+				{ headers: header }
+			);
+			setAllt_Data(data.tasks);
+			console.log(allt_Data);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	useEffect(() => {
@@ -85,17 +106,6 @@ const LandingPage = () => {
 		fetchProjects();
 	}, []);
 
-	// useEffect(async () => {
-	// 	const token = localStorage.getItem("token");
-	// 	const header = {
-	// 		Authorization: `Bearer ${token}`,
-	// 	};
-	// 	const { data } = await axios.get("localhost:3000/user/projects/", {
-	// 		headers: header,
-	// 	});
-	// setAllp_Data(data.project);
-	// })
-
 	return (
 		<DataContext.Provider
 			value={{
@@ -108,6 +118,8 @@ const LandingPage = () => {
 				allp_Data, //* For project bar
 				allt_Data,
 				setAllt_Data,
+				p_id,
+				setP_id,
 			}}
 		>
 			<ResponsiveAppBar onClickcreate />

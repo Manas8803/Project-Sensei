@@ -72,16 +72,16 @@ export default function TaskModal() {
 
 							<select
 								className={classes.selectT}
-								name="pets"
+								name="taskStatus"
 								id="pet-select"
-								value={taskData.value}
+								value={taskData.taskStaus}
 								onChange={handleChange}
 							>
 								<option value="">--Please choose an option--</option>
-								<option value="complete">Complete</option>
 								<option value="incomplete">Incomplete</option>
 								<option value="inprogress">In Progress</option>
-								<option value="done">Done</option>
+								<option value="inreview">In Review</option>
+								<option value="completed">Done</option>
 							</select>
 							<div>
 								<label className={classes.labelT} htmlFor="">
@@ -100,7 +100,9 @@ export default function TaskModal() {
 						<button className={classes.buttonT} onClick={handleClose}>
 							Cancel
 						</button>
-						<button className={classes.buttonT}>Submit</button>
+						<button className={classes.buttonT} onClick={t_HandleSubmit}>
+							Submit
+						</button>
 					</Box>
 				</Fade>
 			</Modal>

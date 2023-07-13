@@ -7,12 +7,14 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import AdbIcon from "@mui/icons-material/Adb";
 import ProjectModal from "./Modals/ProjectModal";
+import { UserContext } from "../../App";
+import { useContext } from "react";
 
 export default function ResponsiveAppBar() {
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
-
-	const handleCloseNavMenu = () => {
-		setAnchorElNav(null);
+	const { setIsAuthenticated } = useContext(UserContext);
+	const logout = () => {
+		setIsAuthenticated(false);
 	};
 
 	return (
@@ -48,7 +50,7 @@ export default function ResponsiveAppBar() {
 						<ProjectModal />
 						<Button
 							key="Logout"
-							onClick={handleCloseNavMenu}
+							onClick={logout}
 							sx={{
 								my: 2,
 								color: "white",

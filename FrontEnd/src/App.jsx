@@ -25,7 +25,6 @@ function App() {
 				[name]: value,
 			};
 		});
-		console.log(user);
 	};
 
 	const handleSubmit = async (event) => {
@@ -36,7 +35,6 @@ function App() {
 					"http://localhost:3000/user/login",
 					user
 				);
-				console.log(data);
         localStorage.setItem("token", data.token);
         setIsAuthenticated(true);
 			} catch (err) {
@@ -54,7 +52,6 @@ function App() {
           "http://localhost:3000/user/register",
 					user
           );
-          console.log(data);
           localStorage.setItem("token", data.token);
           setIsAuthenticated(true);
         } catch (err) {
@@ -74,10 +71,11 @@ function App() {
 				handleSubmit,
 				pageSwitcher,
 				setPageSwitcher,
+				setIsAuthenticated
 			}}
 		>
-			{isAuthenticated && <LoginPage/>}
-			{!isAuthenticated && <LandingPage/>}
+			{!isAuthenticated && <LoginPage/>}
+			{isAuthenticated && <LandingPage/>}
 		</UserContext.Provider>
 	);
 }
