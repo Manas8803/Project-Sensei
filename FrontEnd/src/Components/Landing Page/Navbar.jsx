@@ -11,7 +11,7 @@ import { UserContext } from "../../App";
 import { useContext } from "react";
 
 export default function ResponsiveAppBar() {
-	const [anchorElNav, setAnchorElNav] = React.useState(null);
+
 	const { setIsAuthenticated } = useContext(UserContext);
 	const logout = () => {
 		setIsAuthenticated(false);

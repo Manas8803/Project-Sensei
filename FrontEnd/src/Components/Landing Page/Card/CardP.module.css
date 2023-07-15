@@ -8,5 +8,9 @@
 }
 
 .card:hover {
-	background-color: rgb(193, 193, 193);
+	background-color: #92c6fa;
 }
+.card:focus {
+	background-color: #1876D1;
+}
+

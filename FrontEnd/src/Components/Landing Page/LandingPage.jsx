@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from "react";
+import { createContext } from "react";
 import ResponsiveAppBar from "./Navbar";
 import axios from "axios";
 import Main from "./Main/Main";
 import classes from "./LandingPage.module.css";
 import ProjectBar from "./SideBar/ProjectBar";
 
-export const DataContext = React.createContext();
+export const DataContext = createContext();
 
 const LandingPage = () => {
 	const [projectData, setProjectData] = useState({
 		name: "",
 		description: "",
 	});
-	const [p_id, setP_id] = useState();
 
 	const [taskData, setTaskData] = useState({
 		name: "",
 		description: "",
 		taskStatus: "",
 	});
+
+	const [p_id, setP_id] = useState();
 
 	const [allp_Data, setAllp_Data] = useState([]);
 	const [allt_Data, setAllt_Data] = useState([]);
@@ -87,9 +89,7 @@ const LandingPage = () => {
 
 	useEffect(() => {
 		async function fetchProjects() {
-			//* Project :
-			const token =
-				"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YWVhZDEwMDhhOTFjMjFmZjZmYmUzZSIsIm5hbWUiOiJNYW5hcyBTYWhhIiwiaWF0IjoxNjg5MjcwMjg2LCJleHAiOjE2OTE4NjIyODZ9.6L1L7--vcUdcrRz6GTVcGNdYUba3DQTBqNU9-Dn59Fw";
+			const token = localStorage.getItem("token");
 			try {
 				const header = {
 					Authorization: `Bearer ${token}`,

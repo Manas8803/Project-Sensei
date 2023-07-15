@@ -5,7 +5,6 @@ import Card from "../Card/Card";
 
 const TaskList = (props) => {
 	const { allt_Data } = useContext(DataContext);
-	console.log(allt_Data);
 	const cardT = allt_Data.map((task) => {
 		if (task.taskStatus == props.name) {
 			return (
@@ -13,6 +12,7 @@ const TaskList = (props) => {
 			);
 		}
 	});
+
 	return (
 		<>
 			<div className={classes.container}>

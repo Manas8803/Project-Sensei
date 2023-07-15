@@ -26,7 +26,10 @@ export default function ProjectModal() {
 	const [open, setOpen] = React.useState(false);
 
 	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
+	const handleClose = (e) => {
+		p_HandleSubmit(e);
+		setOpen(false);
+	};
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 		setProjectData((prev) => ({
@@ -94,7 +97,7 @@ export default function ProjectModal() {
 						<button className={classes.buttonP} onClick={handleClose}>
 							Cancel
 						</button>
-						<button className={classes.buttonP} onClick={p_HandleSubmit}>
+						<button className={classes.buttonP} onClick={handleClose}>
 							Submit
 						</button>
 					</Box>

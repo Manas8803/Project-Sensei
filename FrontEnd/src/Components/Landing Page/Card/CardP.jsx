@@ -7,6 +7,7 @@ const CardP = (props) => {
 				className={classes.alingnment}
 				onClick={props.handleClick}
 				id={props.id}
+				key={props.id}
 			>
 				{props.name}
 			</h2>
