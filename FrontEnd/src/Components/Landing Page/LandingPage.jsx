@@ -20,7 +20,7 @@ const LandingPage = () => {
 		taskStatus: "",
 	});
 
-	const [p_id, setP_id] = useState();
+	const [p_id, setP_id] = useState(undefined);
 
 	const [allp_Data, setAllp_Data] = useState([]);
 	const [allt_Data, setAllt_Data] = useState([]);
@@ -50,7 +50,6 @@ const LandingPage = () => {
 				"http://localhost:3000/user/login/projects/",
 				{ headers: header }
 			);
-			console.log(data.project);
 			setAllp_Data(data.project);
 		} catch (error) {
 			console.log(error);
@@ -65,6 +64,18 @@ const LandingPage = () => {
 		const header = {
 			Authorization: `Bearer ${token}`,
 		};
+		const { name } = taskData;
+		console.log("In handle SubmitTask");
+		console.log(name);
+		if (!name) {
+			alert("Please provide sufficient information to create a new task.")
+			return;
+		}
+		if(!p_id){
+			alert("Please select a project to create a new task.")
+			return;
+		}
+		
 		try {
 			await axios.post(
 				`http://localhost:3000/user/login/projects/tasks/${p_id}`,
@@ -81,7 +92,6 @@ const LandingPage = () => {
 				{ headers: header }
 			);
 			setAllt_Data(data.tasks);
-			console.log(allt_Data);
 		} catch (error) {
 			console.log(error);
 		}

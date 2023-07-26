@@ -1,5 +1,4 @@
 .form-main-container {
-	padding: 0;
 	height: 100vh;
 	display: flex;
 	justify-content: center;
@@ -65,11 +64,11 @@
 
 .inputField:focus {
 	outline: none;
-	border-bottom: 2px solid #1876d1;
+	border-bottom: 3.5px solid #1876d1;
 }
 
 .inputField::placeholder {
-	color: rgb(80, 80, 80);
+	color: rgb(133, 133, 133);
 	font-size: 1em;
 	font-weight: 500;
 }
@@ -79,11 +78,11 @@
 	width: 100%;
 	border: 2px solid #1876d1;
 	background-color: #1876d1;
-	height: 40px;
+	height: clamp(3vw, 3vw, 4vw);
 	color: white;
-	font-size: 0.8em;
-	font-weight: 500;
-	letter-spacing: 1px;
+	font-size: 1em;
+	font-weight: 900;
+	letter-spacing: 3px;
 	border-radius: 30px;
 	margin: 10px;
 	cursor: pointer;

@@ -11,9 +11,9 @@ import { UserContext } from "../../App";
 import { useContext } from "react";
 
 export default function ResponsiveAppBar() {
-
 	const { setIsAuthenticated } = useContext(UserContext);
 	const logout = () => {
+		localStorage.setItem("token", null);
 		setIsAuthenticated(false);
 	};
 

@@ -1,16 +1,20 @@
 import CardP from "../Card/CardP";
 import classes from "./ProjectBar.module.css";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { DataContext } from "../LandingPage";
 import axios from "axios";
-import { nanoid } from "nanoid";
 
 const ProjectBar = () => {
 	const { allp_Data, setAllt_Data, setP_id } = useContext(DataContext);
 
 	let cardsP = allp_Data.map((p_data) => {
 		return (
-			<CardP name={p_data.name} handleClick={handleClick} id={p_data._id} />
+			<CardP
+				name={p_data.name}
+				handleClick={handleClick}
+				id={p_data._id}
+				key={p_data.id}
+			/>
 		);
 	});
 
@@ -34,7 +38,7 @@ const ProjectBar = () => {
 	}
 
 	return (
-		<div className={classes.container} key={nanoid()}>
+		<div className={classes.container}>
 			<div className={classes.bg}>
 				<h1 className={classes.colName}>Project List</h1>
 			</div>

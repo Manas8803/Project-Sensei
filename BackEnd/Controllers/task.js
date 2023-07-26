@@ -1,5 +1,5 @@
 const Tasks = require("../Models/task");
-const { BadRequestError } = require("../Errors");
+const { BadRequestError } = require("../Errors/index");
 
 const getAllTasks = async (req, res) => {
 	const { p_id } = req.params;
@@ -11,6 +11,10 @@ const getAllTasks = async (req, res) => {
 const createTask = async (req, res) => {
 	const { p_id } = req.params;
 	const { name, description, taskStatus } = req.body;
+	if (!p_id || !name || !taskStatus) {
+		res.status(204).send( );
+		return;
+	}
 
 	const task = await Tasks.create({
 		name: name,

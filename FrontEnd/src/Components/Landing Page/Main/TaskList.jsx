@@ -15,7 +15,7 @@ const TaskList = (props) => {
 
 	return (
 		<>
-			<div className={classes.container}>
+			<div className={classes.container} key={props.id}>
 				<div className={classes.title}>
 					<h2>{props.title}</h2>
 				</div>

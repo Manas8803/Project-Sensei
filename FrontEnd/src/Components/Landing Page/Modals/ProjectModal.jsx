@@ -78,6 +78,7 @@ export default function ProjectModal() {
 									name="name"
 									onChange={handleChange}
 									value={projectData.name}
+									required
 								/>
 							</div>
 							<div>

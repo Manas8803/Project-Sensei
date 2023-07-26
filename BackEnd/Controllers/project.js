@@ -1,5 +1,6 @@
 const Projects = require("../Models/projects");
-const { BadRequestError } = require("../Errors/BadRequestError");
+const { BadRequestError } = require("../Errors/index");
+const { NoContentError } = require("../Errors/index");
 
 const getAllProjects = async (req, res) => {
 	const { id } = req.user;
@@ -11,6 +12,7 @@ const getAllProjects = async (req, res) => {
 const createProject = async (req, res) => {
 	const { id } = req.user;
 	const { name, description } = req.body;
+	if(!name) throw new NoContentError("No name provided")
 	const project = await Projects.create({
 		name: name,
 		description: description,

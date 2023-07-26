@@ -35,7 +35,6 @@ export default function TaskModal() {
 			...prev,
 			[name]: value,
 		}));
-		console.log(taskData);
 	};
 
 	return (
@@ -69,6 +68,7 @@ export default function TaskModal() {
 									name="name"
 									value={taskData.name}
 									onChange={handleChange}
+									required
 								/>
 							</div>
 							<label htmlFor="progress-selection">Choose Progress</label>
@@ -79,6 +79,7 @@ export default function TaskModal() {
 								id="pet-select"
 								value={taskData.taskStaus}
 								onChange={handleChange}
+								required
 							>
 								<option value="">--Please choose an option--</option>
 								<option value="incomplete">Incomplete</option>
