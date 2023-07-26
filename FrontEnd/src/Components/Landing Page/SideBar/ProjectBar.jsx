@@ -1,25 +1,18 @@
 import CardP from "../Card/CardP";
 import classes from "./ProjectBar.module.css";
 import React, { useContext } from "react";
+import { useState } from "react";
 import { DataContext } from "../LandingPage";
 import axios from "axios";
 
 const ProjectBar = () => {
 	const { allp_Data, setAllt_Data, setP_id } = useContext(DataContext);
+	const [selectedItem, setSelectedItem] = useState(null);
 
-	let cardsP = allp_Data.map((p_data) => {
-		return (
-			<CardP
-				name={p_data.name}
-				handleClick={handleClick}
-				id={p_data._id}
-				key={p_data.id}
-			/>
-		);
-	});
-
-	async function handleClick(e) {
+	async function handleClick(e, index) {
 		const { id } = e.target;
+		console.log("In handleClick");
+		setSelectedItem(index);
 		setP_id(id);
 
 		const token = localStorage.getItem("token");
@@ -42,7 +35,17 @@ const ProjectBar = () => {
 			<div className={classes.bg}>
 				<h1 className={classes.colName}>Project List</h1>
 			</div>
-			{cardsP}
+			{allp_Data.map((p_data, index) => {
+				return (
+					<CardP
+						name={p_data.name}
+						onClick={(e) => handleClick(e, index)}
+						selected={selectedItem === index}
+						id={p_data._id}
+						key={p_data.id}
+					/>
+				);
+			})}
 		</div>
 	);
 };
