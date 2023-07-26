@@ -74,8 +74,8 @@ function App() {
 				setIsAuthenticated
 			}}
 		>
-			{isAuthenticated && <LoginPage/>}
-			{!isAuthenticated && <LandingPage/>}
+			{!isAuthenticated && <LoginPage/>}
+			{isAuthenticated && <LandingPage/>}
 		</UserContext.Provider>
 	);
 }

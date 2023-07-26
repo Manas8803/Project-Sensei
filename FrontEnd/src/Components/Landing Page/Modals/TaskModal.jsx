@@ -21,13 +21,17 @@ const style = {
 };
 
 export default function TaskModal() {
+	const { taskData, setTaskData, t_HandleSubmit } = useContext(DataContext);
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = (e) => {
-		t_HandleSubmit(e);
 		setOpen(false);
 	};
-	const { taskData, setTaskData, t_HandleSubmit } = useContext(DataContext);
+
+	const handleSubmit = (e) => {
+		t_HandleSubmit(e);
+		handleClose(e);
+	};
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
@@ -104,7 +108,7 @@ export default function TaskModal() {
 						<button className={classes.buttonT} onClick={handleClose}>
 							Cancel
 						</button>
-						<button className={classes.buttonT} onClick={handleClose}>
+						<button className={classes.buttonT} onClick={handleSubmit}>
 							Submit
 						</button>
 					</Box>

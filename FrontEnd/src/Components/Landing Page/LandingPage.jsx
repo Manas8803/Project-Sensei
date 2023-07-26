@@ -68,14 +68,14 @@ const LandingPage = () => {
 		console.log("In handle SubmitTask");
 		console.log(name);
 		if (!name) {
-			alert("Please provide sufficient information to create a new task.")
+			alert("Please provide sufficient information to create a new task.");
 			return;
 		}
-		if(!p_id){
-			alert("Please select a project to create a new task.")
+		if (!p_id) {
+			alert("Please select a project to create a new task.");
 			return;
 		}
-		
+
 		try {
 			await axios.post(
 				`http://localhost:3000/user/login/projects/tasks/${p_id}`,
