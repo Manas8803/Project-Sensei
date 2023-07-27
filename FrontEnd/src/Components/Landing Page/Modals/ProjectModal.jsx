@@ -5,8 +5,8 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import { useContext } from "react";
-import { DataContext } from "../LandingPage";
 import classes from "./ProjectModal.module.css";
+import { ProjectFormContext, useProjectFormData } from "../../../ContextProvider";
 
 const style = {
 	position: "absolute",
@@ -22,7 +22,7 @@ const style = {
 
 export default function ProjectModal() {
 	const { projectData, setProjectData, p_HandleSubmit } =
-		useContext(DataContext);
+		useProjectFormData();
 	const [open, setOpen] = React.useState(false);
 
 	const handleOpen = () => setOpen(true);

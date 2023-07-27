@@ -11,9 +11,9 @@ function App() {
 		name: "",
 		password: "",
 		email: "",
-  });
-  
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+	});
+
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 	const [pageSwitcher, setPageSwitcher] = useState(false);
 
@@ -35,32 +35,28 @@ function App() {
 					"http://localhost:3000/user/login",
 					user
 				);
-        localStorage.setItem("token", data.token);
-        setIsAuthenticated(true);
+				localStorage.setItem("token", data.token);
+				setIsAuthenticated(true);
 			} catch (err) {
 				const { status } = err.response;
 				if (status == 400)
-        alert("The provided email is not registered.\nPlease Register");
+					alert("The provided email is not registered.\nPlease Register");
 				else if (status == 403)
-        alert("Password is incorrect.\nPlease type the correct password");
-      }
-    }
-    
-    else {
-      try {
-        const { data } = await axios.post(
-          "http://localhost:3000/user/register",
+					alert("Password is incorrect.\nPlease type the correct password");
+			}
+		} else {
+			try {
+				const { data } = await axios.post(
+					"http://localhost:3000/user/register",
 					user
-          );
-          localStorage.setItem("token", data.token);
-          setIsAuthenticated(true);
-        } catch (err) {
-        const { status } = err.response;
-        if (status == 409)
-          alert("Email is already registered.\nPlease Login");
-      }
-    }
-
+				);
+				localStorage.setItem("token", data.token);
+				setIsAuthenticated(true);
+			} catch (err) {
+				const { status } = err.response;
+				if (status == 409) alert("Email is already registered.\nPlease Login");
+			}
+		}
 	};
 
 	return (
@@ -71,11 +67,11 @@ function App() {
 				handleSubmit,
 				pageSwitcher,
 				setPageSwitcher,
-				setIsAuthenticated
+				setIsAuthenticated,
 			}}
 		>
-			{!isAuthenticated && <LoginPage/>}
-			{isAuthenticated && <LandingPage/>}
+			{isAuthenticated && <LoginPage />}
+			{!isAuthenticated && <LandingPage />}
 		</UserContext.Provider>
 	);
 }

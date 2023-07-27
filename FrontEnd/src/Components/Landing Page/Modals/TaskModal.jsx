@@ -4,9 +4,8 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
-import { useContext } from "react";
-import { DataContext } from "../LandingPage";
 import classes from "./TaskModal.module.css";
+import { useTaskFormData } from "../../../ContextProvider";
 
 const style = {
 	position: "absolute",
@@ -21,7 +20,7 @@ const style = {
 };
 
 export default function TaskModal() {
-	const { taskData, setTaskData, t_HandleSubmit } = useContext(DataContext);
+	const { taskData, setTaskData, t_HandleSubmit } = useTaskFormData();
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = (e) => {

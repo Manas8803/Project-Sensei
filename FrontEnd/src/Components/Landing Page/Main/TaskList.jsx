@@ -1,17 +1,10 @@
 import classes from "./TaskList.module.css";
 import { useContext } from "react";
-import { DataContext } from "../LandingPage";
 import Card from "../Card/Card";
+import { useAllTaskData } from "../../../ContextProvider";
 
 const TaskList = (props) => {
-	const { allt_Data } = useContext(DataContext);
-	const cardT = allt_Data.map((task) => {
-		if (task.taskStatus == props.name) {
-			return (
-				<Card name={task.name} description={task.description} id={task.id} />
-			);
-		}
-	});
+	const { allt_Data } = useAllTaskData();
 
 	return (
 		<>
@@ -19,7 +12,17 @@ const TaskList = (props) => {
 				<div className={classes.title}>
 					<h2>{props.title}</h2>
 				</div>
-				{cardT}
+				{allt_Data.map((task) => {
+					if (task.taskStatus == props.name) {
+						return (
+							<Card
+								name={task.name}
+								description={task.description}
+								id={task.id}
+							/>
+						);
+					}
+				})}
 			</div>
 		</>
 	);

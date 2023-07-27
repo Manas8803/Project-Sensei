@@ -2,16 +2,22 @@ import CardP from "../Card/CardP";
 import classes from "./ProjectBar.module.css";
 import React, { useContext } from "react";
 import { useState } from "react";
-import { DataContext } from "../LandingPage";
 import axios from "axios";
+import {
+	useAllProjectData,
+	useAllTaskData,
+	usePID,
+} from "../../../ContextProvider";
 
 const ProjectBar = () => {
-	const { allp_Data, setAllt_Data, setP_id } = useContext(DataContext);
+	const { allp_Data } = useAllProjectData();
+	const { setAllt_Data } = useAllTaskData();
+	const { setP_id } = usePID();
+
 	const [selectedItem, setSelectedItem] = useState(null);
 
 	async function handleClick(e, index) {
 		const { id } = e.target;
-		console.log("In handleClick");
 		setSelectedItem(index);
 		setP_id(id);
 
