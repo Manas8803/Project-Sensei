@@ -3,6 +3,13 @@ import { useState } from "react";
 import axios from "axios";
 import LandingPage from "./Components/Landing Page/LandingPage";
 import LoginPage from "./Components/LoginPage/LoginPage";
+import {
+	BrowserRouter,
+	Route,
+	Router,
+	Routes,
+	useNavigate,
+} from "react-router-dom";
 
 export const UserContext = React.createContext();
 
@@ -13,9 +20,8 @@ function App() {
 		email: "",
 	});
 
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
-
 	const [pageSwitcher, setPageSwitcher] = useState(false);
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
@@ -70,8 +76,14 @@ function App() {
 				setIsAuthenticated,
 			}}
 		>
-			{isAuthenticated && <LoginPage />}
-			{!isAuthenticated && <LandingPage />}
+			{isAuthenticated ? <LandingPage /> : <LoginPage />}
+			{/* <BrowserRouter>
+				<Routes>
+					{isAuthenticated ? navigate("/P-S") : navigate("/")}
+					<Route path="/" element={<LoginPage />} />
+					<Route path="/P-S" element={<LandingPage />} />
+				</Routes>
+			</BrowserRouter> */}
 		</UserContext.Provider>
 	);
 }

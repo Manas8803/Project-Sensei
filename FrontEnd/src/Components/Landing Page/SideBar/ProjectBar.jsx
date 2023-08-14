@@ -12,7 +12,7 @@ import {
 const ProjectBar = () => {
 	const { allp_Data } = useAllProjectData();
 	const { setAllt_Data } = useAllTaskData();
-	const { setP_id } = usePID();
+	const { p_id, setP_id } = usePID();
 
 	const [selectedItem, setSelectedItem] = useState(null);
 
@@ -48,7 +48,6 @@ const ProjectBar = () => {
 						onClick={(e) => handleClick(e, index)}
 						selected={selectedItem === index}
 						id={p_data._id}
-						key={p_data.id}
 					/>
 				);
 			})}

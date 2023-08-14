@@ -7,6 +7,7 @@ const CardP = (props) => {
 			className={props.selected ? classes.selected : classes.card}
 			onClick={props.onClick}
 			id={props.id}
+			key={props.id}
 		>
 			<h2 className={classes.alingnment} id={props.id}>
 				{props.name}

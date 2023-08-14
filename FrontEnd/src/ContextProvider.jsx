@@ -1,12 +1,14 @@
 import { createContext, useContext, useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
+import React from "react";
 
 export const AllProjectContext = createContext();
 export const AllTaskContext = createContext();
 export const ProjectFormContext = createContext();
 export const TaskFormContext = createContext();
 export const PIDContext = createContext();
+export const IsAuthenticatedContext = createContext();
 
 export function useAllProjectData() {
 	return useContext(AllProjectContext);
@@ -47,38 +49,6 @@ export default function ContextProvider({ children }) {
 
 	//* PID state :
 	const [p_id, setP_id] = useState(undefined);
-
-	const handleSubmit = async (event) => {
-		event.preventDefault();
-		if (!pageSwitcher) {
-			try {
-				const { data } = await axios.post(
-					"http://localhost:3000/user/login",
-					user
-				);
-				localStorage.setItem("token", data.token);
-				setIsAuthenticated(true);
-			} catch (err) {
-				const { status } = err.response;
-				if (status == 400)
-					alert("The provided email is not registered.\nPlease Register");
-				else if (status == 403)
-					alert("Password is incorrect.\nPlease type the correct password");
-			}
-		} else {
-			try {
-				const { data } = await axios.post(
-					"http://localhost:3000/user/register",
-					user
-				);
-				localStorage.setItem("token", data.token);
-				setIsAuthenticated(true);
-			} catch (err) {
-				const { status } = err.response;
-				if (status == 409) alert("Email is already registered.\nPlease Login");
-			}
-		}
-	};
 
 	const p_HandleSubmit = async (e) => {
 		e.preventDefault();
@@ -172,20 +142,24 @@ export default function ContextProvider({ children }) {
 	}, []);
 
 	return (
-		<AllProjectContext.Provider value={{ allp_Data, setAllp_Data }}>
-			<AllTaskContext.Provider value={{ allt_Data, setAllt_Data }}>
-				<ProjectFormContext.Provider
-					value={{ projectData, setProjectData, p_HandleSubmit }}
-				>
-					<TaskFormContext.Provider
-						value={{ taskData, setTaskData, t_HandleSubmit }}
+		<>
+			<AllProjectContext.Provider value={{ allp_Data, setAllp_Data }}>
+				<AllTaskContext.Provider value={{ allt_Data, setAllt_Data }}>
+					<ProjectFormContext.Provider
+						value={{ projectData, setProjectData, p_HandleSubmit }}
 					>
-						<PIDContext.Provider value={{ p_id, setP_id }}>
-							{children}
-						</PIDContext.Provider>
-					</TaskFormContext.Provider>
-				</ProjectFormContext.Provider>
-			</AllTaskContext.Provider>
-		</AllProjectContext.Provider>
+						<TaskFormContext.Provider
+							value={{ taskData, setTaskData, t_HandleSubmit }}
+						>
+							<PIDContext.Provider value={{ p_id, setP_id }}>
+								{children}
+							</PIDContext.Provider>
+						</TaskFormContext.Provider>
+					</ProjectFormContext.Provider>
+				</AllTaskContext.Provider>
+			</AllProjectContext.Provider>
+		</>
 	);
 }
+
+ContextProvider.propTypes = {};
