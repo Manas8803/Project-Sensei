@@ -3,7 +3,6 @@ const app = express();
 const { notFound } = require("./Middleware/Not Found");
 const cors = require("cors");
 
-
 //^ DB
 require("./DB/connect");
 require("express-async-errors");
@@ -18,8 +17,7 @@ const TaskRouter = require("./Routes/task");
 app.use(express.json());
 app.use(cors());
 app.use("/user", UserRouter); //& Always use this middleware function first before notFound route
-app.use("/user/login/projects", ProjectRouter);
-app.use("/user/login/projects/tasks", TaskRouter);
+app.use("/user/login/projects", ProjectRouter, TaskRouter);
 app.use(notFound);
 
 require("dotenv").config();

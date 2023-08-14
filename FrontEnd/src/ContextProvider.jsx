@@ -30,6 +30,12 @@ export function usePID() {
 	return useContext(PIDContext);
 }
 
+//* Token Retrieval :
+const token = localStorage.getItem("token");
+const header = {
+	Authorization: `Bearer ${token}`,
+};
+
 export default function ContextProvider({ children }) {
 	//* All project/task state :
 	const [allp_Data, setAllp_Data] = useState([]);
@@ -52,15 +58,8 @@ export default function ContextProvider({ children }) {
 	//* PID state :
 	const [p_id, setP_id] = useState(undefined);
 
-	const p_HandleSubmit = async (e) => {
-		e.preventDefault();
-		const token = localStorage.getItem("token");
-
-		//? Api Calls
-		//&  1. Create project
-		const header = {
-			Authorization: `Bearer ${token}`,
-		};
+	//* For Projects :
+	const createProject = async () => {
 		try {
 			await axios.post(
 				"http://localhost:3000/user/login/projects/",
@@ -70,8 +69,9 @@ export default function ContextProvider({ children }) {
 		} catch (error) {
 			console.log(error);
 		}
+	};
 
-		//&  2. Get all projects
+	const getAllProjects = async () => {
 		try {
 			const { data } = await axios.get(
 				"http://localhost:3000/user/login/projects/",
@@ -83,17 +83,9 @@ export default function ContextProvider({ children }) {
 		}
 	};
 
-	const t_HandleSubmit = async (e) => {
-		e.preventDefault();
-		//? Api Calls
-		//&  1. Create task
-		const token = localStorage.getItem("token");
-		const header = {
-			Authorization: `Bearer ${token}`,
-		};
+	//* For Tasks :
+	const createTask = async () => {
 		const { name } = taskData;
-		console.log("In handle SubmitTask");
-		console.log(name);
 		if (!name) {
 			alert("Please provide sufficient information to create a new task.");
 			return;
@@ -102,20 +94,23 @@ export default function ContextProvider({ children }) {
 			alert("Please select a project to create a new task.");
 			return;
 		}
+		console.log(p_id);
 
 		try {
 			await axios.post(
-				`http://localhost:3000/user/login/projects/tasks/${p_id}`,
+				`http://localhost:3000/user/login/projects/${p_id}/tasks/`,
 				taskData,
 				{ headers: header }
 			);
 		} catch (error) {
 			console.log(error);
 		}
-		//&  2. Get all tasks
+	};
+
+	const getAlltasks = async (p_id) => {
 		try {
 			const { data } = await axios.get(
-				`http://localhost:3000/user/login/projects/tasks/${p_id}`,
+				`http://localhost:3000/user/login/projects/${p_id}/tasks/`,
 				{ headers: header }
 			);
 			setAllt_Data(data.tasks);
@@ -124,34 +119,56 @@ export default function ContextProvider({ children }) {
 		}
 	};
 
+	//^ For Modals :
+	const p_HandleSubmit = async (e) => {
+		e.preventDefault();
+
+		//? Api Calls
+		//&  1. Create project
+		await createProject();
+		//&  2. Get all projects
+		await getAllProjects();
+	};
+
+	const t_HandleSubmit = async (e) => {
+		e.preventDefault();
+		//? Api Calls
+		//&  1. Create task
+		await createTask(p_id);
+		//&  2. Get all tasks
+		await getAlltasks(p_id);
+	};
+
 	useEffect(() => {
 		async function fetchProjects() {
-			const token = localStorage.getItem("token");
-			try {
-				const header = {
-					Authorization: `Bearer ${token}`,
-				};
-				const { data } = await axios.get(
-					"http://localhost:3000/user/login/projects/",
-					{ headers: header }
-				);
-				setAllp_Data(data.project);
-			} catch (error) {
-				console.log(error);
-			}
+			await getAllProjects();
 		}
 		fetchProjects();
 	}, []);
 
 	return (
 		<>
-			<AllProjectContext.Provider value={{ allp_Data, setAllp_Data }}>
-				<AllTaskContext.Provider value={{ allt_Data, setAllt_Data }}>
+			<AllProjectContext.Provider
+				value={{ allp_Data, setAllp_Data, getAllProjects }}
+			>
+				<AllTaskContext.Provider
+					value={{ allt_Data, setAllt_Data, getAlltasks }}
+				>
 					<ProjectFormContext.Provider
-						value={{ projectData, setProjectData, p_HandleSubmit }}
+						value={{
+							projectData,
+							setProjectData,
+							p_HandleSubmit,
+							createProject,
+						}}
 					>
 						<TaskFormContext.Provider
-							value={{ taskData, setTaskData, t_HandleSubmit }}
+							value={{
+								taskData,
+								setTaskData,
+								t_HandleSubmit,
+								createTask,
+							}}
 						>
 							<PIDContext.Provider value={{ p_id, setP_id }}>
 								{children}

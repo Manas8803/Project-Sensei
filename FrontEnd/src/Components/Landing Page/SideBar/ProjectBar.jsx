@@ -27,10 +27,9 @@ const ProjectBar = () => {
 		};
 		try {
 			const { data } = await axios.get(
-				`http://localhost:3000/user/login/projects/tasks/${id}`,
+				`http://localhost:3000/user/login/projects/${id}/tasks`,
 				{ headers: header }
 			);
-			console.log(data.tasks);
 			setAllt_Data(data.tasks);
 		} catch (error) {
 			console.log(error);
