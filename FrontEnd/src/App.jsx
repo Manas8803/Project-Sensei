@@ -3,13 +3,6 @@ import { useState } from "react";
 import axios from "axios";
 import LandingPage from "./Components/Landing Page/LandingPage";
 import LoginPage from "./Components/LoginPage/LoginPage";
-import {
-	BrowserRouter,
-	Route,
-	Router,
-	Routes,
-	useNavigate,
-} from "react-router-dom";
 
 export const UserContext = React.createContext();
 
@@ -76,7 +69,7 @@ function App() {
 				setIsAuthenticated,
 			}}
 		>
-			{isAuthenticated ? <LandingPage /> : <LoginPage />}
+			{!isAuthenticated ? <LandingPage /> : <LoginPage />}
 			{/* <BrowserRouter>
 				<Routes>
 					{isAuthenticated ? navigate("/P-S") : navigate("/")}

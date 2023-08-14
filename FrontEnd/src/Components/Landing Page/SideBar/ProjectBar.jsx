@@ -1,6 +1,6 @@
 import CardP from "../Card/CardP";
 import classes from "./ProjectBar.module.css";
-import React, { useContext } from "react";
+import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import {
@@ -12,7 +12,7 @@ import {
 const ProjectBar = () => {
 	const { allp_Data } = useAllProjectData();
 	const { setAllt_Data } = useAllTaskData();
-	const { p_id, setP_id } = usePID();
+	const { setP_id } = usePID();
 
 	const [selectedItem, setSelectedItem] = useState(null);
 
@@ -30,6 +30,7 @@ const ProjectBar = () => {
 				`http://localhost:3000/user/login/projects/tasks/${id}`,
 				{ headers: header }
 			);
+			console.log(data.tasks);
 			setAllt_Data(data.tasks);
 		} catch (error) {
 			console.log(error);

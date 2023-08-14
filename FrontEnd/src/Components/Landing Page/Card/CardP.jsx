@@ -4,7 +4,7 @@ import React from "react";
 const CardP = (props) => {
 	return (
 		<button
-			className={props.selected ? classes.selected : classes.card}
+			className={props.selected ? `${classes.selected}` : `${classes.card}`}
 			onClick={props.onClick}
 			id={props.id}
 			key={props.id}

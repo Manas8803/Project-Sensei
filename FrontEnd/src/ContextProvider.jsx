@@ -39,12 +39,14 @@ export default function ContextProvider({ children }) {
 	const [projectData, setProjectData] = useState({
 		name: "",
 		description: "",
+		_id: "",
 	});
 
 	const [taskData, setTaskData] = useState({
 		name: "",
 		description: "",
 		taskStatus: "",
+		_id: "",
 	});
 
 	//* PID state :
