@@ -76,7 +76,7 @@ function App() {
 				setIsAuthenticated,
 			}}
 		>
-			{!isAuthenticated ? <LandingPage /> : <LoginPage />}
+			{isAuthenticated ? <LandingPage /> : <LoginPage />}
 			{/* <BrowserRouter>
 				<Routes>
 					{isAuthenticated ? navigate("/P-S") : navigate("/")}

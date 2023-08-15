@@ -3,6 +3,7 @@ body {
 	font-family: "Poppins";
 }
 .card {
+	display: grid;
 	padding: 1rem;
 	min-height: 10rem;
 	box-shadow: rgba(0, 0, 0, 0.17) 0px 25px 50px -12px;
@@ -13,8 +14,8 @@ body {
 	margin-bottom: 8%;
 	cursor: pointer;
 	transition: 0.2s ease;
-	display: grid;
-	grid-template-columns: 90% 1fr;
+	grid-template-columns: 75% 1fr;
+	word-wrap: normal;
 }
 
 .card:hover {
@@ -25,5 +26,5 @@ body {
 
 .btnC {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 }
