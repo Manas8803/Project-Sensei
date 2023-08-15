@@ -4,7 +4,7 @@ import classes from "./Main.module.css";
 const Main = () => {
 	return (
 		<div className={classes.bg}>
-			<Searchbar></Searchbar>
+			<Searchbar ></Searchbar>
 			<div className={classes.subgen}>
 				<TaskList class title="Todo" name="incomplete" id={1} />
 				<TaskList title="In Progress" name="inprogress" id={2} />

@@ -11,14 +11,16 @@ const CardP = (props) => {
         id={props.id}
         key={props.id}
       >
-        <h2 className={classes.alingnment} id={props.id}>
-          {props.name}
-        </h2>
+        <div className={classes.content}>
+          <h2 className={classes.alingnment} id={props.id}>
+            {props.name}
+          </h2>
+        </div>
+        <div className={classes.btnContainer}>
+          <EditPModal />
+          <ConfirmDeleteModal />
+        </div>
       </button>
-      <div className={classes.btnContainer}>
-        <EditPModal />
-        <ConfirmDeleteModal />
-      </div>
     </>
   );
 };

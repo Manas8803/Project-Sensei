@@ -13,6 +13,8 @@ body {
   margin-bottom: 8%;
   cursor: pointer;
   transition: 0.2s ease;
+  display: grid;
+  grid-template-columns: 90% 1fr;
 }
 
 .card:hover {
@@ -21,7 +23,10 @@ body {
     rgba(17, 17, 26, 0.2) 0px 16px 56px, rgba(17, 17, 26, 0.2) 0px 24px 80px;
 }
 
+.content {
+}
+
 .btnC {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
 }

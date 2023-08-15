@@ -6,7 +6,7 @@ import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import classes from "./TaskModal.module.css";
 import { useTaskFormData } from "../../../ContextProvider";
-
+import logo from "../../../assets/edit-button-svgrepo-com.svg";
 const style = {
   position: "absolute",
   top: "50%",
@@ -42,12 +42,7 @@ export default function EditTModal() {
 
   return (
     <>
-      <Button
-        onClick={handleOpen}
-        sx={{ backgroundColor: "White", color: "black", border: "solid 1px" }}
-      >
-        Edit
-      </Button>
+      <img className={classes.imgEdit} onClick={handleOpen} src={logo} />
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -87,9 +82,7 @@ export default function EditTModal() {
                 onChange={handleChange}
                 required
               >
-                <option value="">
-                  --Please choose an option--
-                </option>
+                <option value="">--Please choose an option--</option>
                 <option value="incomplete">Incomplete</option>
                 <option value="inprogress">In Progress</option>
                 <option value="inreview">In Review</option>

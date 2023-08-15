@@ -6,6 +6,7 @@ import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import { useContext } from "react";
 import classes from "./ProjectModal.module.css";
+import logo from "../../../assets/edit-button-svgrepo-com.svg";
 import {
   ProjectFormContext,
   useProjectFormData,
@@ -42,17 +43,7 @@ export default function EditPModal() {
 
   return (
     <div>
-      <Button
-        className="modal-trigger"
-        sx={{
-          backgroundColor: "white",
-          color: "black",
-          border: "solid 1px",
-        }}
-        onClick={handleOpen}
-      >
-        Edit
-      </Button>
+      <img src={logo} onClick={handleOpen} className={classes.imgEdit} />
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

@@ -6,7 +6,7 @@ import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import classes from "./TaskModal.module.css";
 import { useTaskFormData } from "../../../ContextProvider";
-
+import logo from "../../../assets/delete-button-svgrepo-com.svg";
 const style = {
   position: "absolute",
   top: "50%",
@@ -32,17 +32,7 @@ export default function ConfirmDeleteModal() {
 
   return (
     <>
-      <Button
-        onClick={handleOpen}
-        sx={{
-          backgroundColor: "white",
-          color: "black",
-          border: "solid 1px",
-          borderRadius: "6px",
-        }}
-      >
-        Delete
-      </Button>
+      <img src={logo} onClick={handleOpen} className={classes.imgEdit} />
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

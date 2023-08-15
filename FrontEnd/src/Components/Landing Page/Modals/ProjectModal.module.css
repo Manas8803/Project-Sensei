@@ -25,7 +25,6 @@
   min-height: 100px;
 }
 
-
 .buttonP {
   padding: 8px 16px;
   margin-right: 2rem;
@@ -35,4 +34,10 @@
   border-radius: 4px;
   cursor: pointer;
   margin-top: 16px;
+}
+
+.imgEdit {
+  margin: 5px 0;
+  height: 2vh;
+  width: 2vw;
 }
