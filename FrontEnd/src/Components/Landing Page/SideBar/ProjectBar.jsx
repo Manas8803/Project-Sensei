@@ -10,8 +10,8 @@ import {
 } from "../../../ContextProvider";
 
 const ProjectBar = () => {
-	const { allp_Data } = useAllProjectData();
-	const { setAllt_Data } = useAllTaskData();
+	const { allp_Data, getAllProjects } = useAllProjectData();
+	const { setAllt_Data, getAlltasks } = useAllTaskData();
 	const { setP_id } = usePID();
 
 	const [selectedItem, setSelectedItem] = useState(null);
@@ -20,20 +20,7 @@ const ProjectBar = () => {
 		const { id } = e.target;
 		setSelectedItem(index);
 		setP_id(id);
-
-		const token = localStorage.getItem("token");
-		const header = {
-			Authorization: `Bearer ${token}`,
-		};
-		try {
-			const { data } = await axios.get(
-				`http://localhost:3000/user/login/projects/${id}/tasks`,
-				{ headers: header }
-			);
-			setAllt_Data(data.tasks);
-		} catch (error) {
-			console.log(error);
-		}
+		getAlltasks();
 	}
 
 	return (

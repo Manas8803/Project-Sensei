@@ -107,7 +107,7 @@ export default function ContextProvider({ children }) {
 		}
 	};
 
-	const getAlltasks = async (p_id) => {
+	const getAlltasks = async () => {
 		try {
 			const { data } = await axios.get(
 				`http://localhost:3000/user/login/projects/${p_id}/tasks/`,
@@ -134,9 +134,9 @@ export default function ContextProvider({ children }) {
 		e.preventDefault();
 		//? Api Calls
 		//&  1. Create task
-		await createTask(p_id);
+		await createTask();
 		//&  2. Get all tasks
-		await getAlltasks(p_id);
+		await getAlltasks();
 	};
 
 	useEffect(() => {
