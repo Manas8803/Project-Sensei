@@ -1,5 +1,7 @@
 .gen {
-  margin-top: 80px;
+  margin-top: 69px;
   display: grid;
   grid-template-columns: 1fr 4fr;
+  margin-bottom: -1vh;
+  height: 100vh;
 }
