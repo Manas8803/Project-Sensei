@@ -39,3 +39,9 @@
   cursor: pointer;
   margin-top: 16px;
 }
+
+.imgEdit {
+  margin: 5px 0;
+  height: 2vh;
+  width: 2vw;
+}

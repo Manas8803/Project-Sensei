@@ -10,14 +10,16 @@ import {
 } from "../../../ContextProvider";
 
 const ProjectBar = () => {
-	const { allp_Data, getAllProjects } = useAllProjectData();
-	const { setAllt_Data, getAlltasks } = useAllTaskData();
+	const { allp_Data } = useAllProjectData();
+	const { setAllt_Data } = useAllTaskData();
 	const { setP_id } = usePID();
 
 	const [selectedItem, setSelectedItem] = useState(null);
 
-	async function handleClick(e, index) {
-		const { id } = e.target;
+	async function handleClick(event, index) {
+		const { id } = event.target;
+		console.log(id);
+		if (!id) return;
 		setSelectedItem(index);
 		setP_id(id);
 		const token = localStorage.getItem("token");
@@ -47,6 +49,7 @@ const ProjectBar = () => {
 						onClick={(e) => handleClick(e, index)}
 						selected={selectedItem === index}
 						id={p_data._id}
+						key={p_data._id}
 					/>
 				);
 			})}

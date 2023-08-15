@@ -59,18 +59,6 @@ export default function ContextProvider({ children }) {
 	const [p_id, setP_id] = useState(undefined);
 
 	//* For Projects :
-	const createProject = async () => {
-		try {
-			await axios.post(
-				"http://localhost:3000/user/login/projects/",
-				projectData,
-				{ headers: header }
-			);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
 	const getAllProjects = async () => {
 		try {
 			const { data } = await axios.get(
@@ -83,7 +71,41 @@ export default function ContextProvider({ children }) {
 		}
 	};
 
+	const createProject = async () => {
+		try {
+			await axios.post(
+				"http://localhost:3000/user/login/projects/",
+				projectData,
+				{ headers: header }
+			);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const deleteProject = async (id) => {
+		try {
+			await axios.delete(`http://localhost:3000/user/login/projects/${id}`, {
+				headers: header,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	//* For Tasks :
+	const getAllTasks = async () => {
+		try {
+			const { data } = await axios.get(
+				`http://localhost:3000/user/login/projects/${p_id}/tasks/`,
+				{ headers: header }
+			);
+			setAllt_Data(data.tasks);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const createTask = async () => {
 		const { name } = taskData;
 		if (!name) {
@@ -107,13 +129,12 @@ export default function ContextProvider({ children }) {
 		}
 	};
 
-	const getAlltasks = async () => {
+	const deleteTask = async (t_id) => {
 		try {
-			const { data } = await axios.get(
-				`http://localhost:3000/user/login/projects/${p_id}/tasks/`,
+			await axios.delete(
+				`http://localhost:3000/user/login/projects/${p_id}/tasks/${t_id}`,
 				{ headers: header }
 			);
-			setAllt_Data(data.tasks);
 		} catch (error) {
 			console.log(error);
 		}
@@ -127,7 +148,7 @@ export default function ContextProvider({ children }) {
 		//&  1. Create project
 		await createProject();
 		//&  2. Get all projects
-		await getAllProjects();
+		getAllProjects();
 	};
 
 	const t_HandleSubmit = async (e) => {
@@ -136,7 +157,7 @@ export default function ContextProvider({ children }) {
 		//&  1. Create task
 		await createTask();
 		//&  2. Get all tasks
-		await getAlltasks();
+		getAllTasks();
 	};
 
 	useEffect(() => {
@@ -149,10 +170,10 @@ export default function ContextProvider({ children }) {
 	return (
 		<>
 			<AllProjectContext.Provider
-				value={{ allp_Data, setAllp_Data, getAllProjects }}
+				value={{ allp_Data, setAllp_Data, getAllProjects, deleteProject }}
 			>
 				<AllTaskContext.Provider
-					value={{ allt_Data, setAllt_Data, getAlltasks }}
+					value={{ allt_Data, setAllt_Data, getAllTasks, deleteTask }}
 				>
 					<ProjectFormContext.Provider
 						value={{
