@@ -5,6 +5,7 @@ import { useAllTaskData } from "../../../ContextProvider";
 const TaskList = (props) => {
 	const { allt_Data } = useAllTaskData();
 
+
 	return (
 		<>
 			<div className={classes.container} key={props.id}>
@@ -18,6 +19,7 @@ const TaskList = (props) => {
 								name={task.name}
 								description={task.description}
 								id={task.id}
+								display="block"
 							/>
 						);
 					}

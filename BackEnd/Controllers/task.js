@@ -11,7 +11,6 @@ const getAllTasks = async (req, res) => {
 
 const createTask = async (req, res) => {
 	const { p_id } = req.params;
-	console.log(p_id);
 	const { name, description, taskStatus } = req.body;
 	if (!p_id || !name || !taskStatus) {
 		res.status(204).send();

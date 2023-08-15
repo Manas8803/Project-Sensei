@@ -1,7 +1,9 @@
 import classes from "./Searchbar.module.css";
 import TaskModal from "../Modals/TaskModal";
+import { useState } from "react";
 
 const Searchbar = () => {
+	const [searchText, setSearchText] = useState(undefined);
 	return (
 		<>
 			<div className={classes.searchbar}>
@@ -13,7 +15,7 @@ const Searchbar = () => {
 					/>
 				</div>
 				<div className={classes.taskbtn} style={{ maxHeight: "2.6rem" }}>
-					<TaskModal></TaskModal>
+					<TaskModal />
 				</div>
 			</div>
 		</>

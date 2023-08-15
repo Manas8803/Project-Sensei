@@ -20,7 +20,19 @@ const ProjectBar = () => {
 		const { id } = e.target;
 		setSelectedItem(index);
 		setP_id(id);
-		getAlltasks();
+		const token = localStorage.getItem("token");
+		const header = {
+			Authorization: `Bearer ${token}`,
+		};
+		try {
+			const { data } = await axios.get(
+				`http://localhost:3000/user/login/projects/${id}/tasks`,
+				{ headers: header }
+			);
+			setAllt_Data(data.tasks);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	return (
