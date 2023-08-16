@@ -3,13 +3,6 @@ import { useState } from "react";
 import axios from "axios";
 import LandingPage from "./Components/Landing Page/LandingPage";
 import LoginPage from "./Components/LoginPage/LoginPage";
-import {
-	BrowserRouter,
-	Route,
-	Router,
-	Routes,
-	useNavigate,
-} from "react-router-dom";
 
 export const UserContext = React.createContext();
 
@@ -38,7 +31,7 @@ function App() {
 		if (!pageSwitcher) {
 			try {
 				const { data } = await axios.post(
-					"http://localhost:3000/user/login",
+					"https://project-sensei.onrender.com/user/login",
 					user
 				);
 				localStorage.setItem("token", data.token);
@@ -53,7 +46,7 @@ function App() {
 		} else {
 			try {
 				const { data } = await axios.post(
-					"http://localhost:3000/user/register",
+					"https://project-sensei.onrender.com/user/register",
 					user
 				);
 				localStorage.setItem("token", data.token);
@@ -77,13 +70,6 @@ function App() {
 			}}
 		>
 			{isAuthenticated ? <LandingPage /> : <LoginPage />}
-			{/* <BrowserRouter>
-				<Routes>
-					{isAuthenticated ? navigate("/P-S") : navigate("/")}
-					<Route path="/" element={<LoginPage />} />
-					<Route path="/P-S" element={<LandingPage />} />
-				</Routes>
-			</BrowserRouter> */}
 		</UserContext.Provider>
 	);
 }

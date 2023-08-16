@@ -5,7 +5,8 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import classes from "./TaskModal.module.css";
-import { useTaskFormData } from "../../../ContextProvider";
+import { useAllTaskData, useTaskFormData } from "../../../ContextProvider";
+import { useState } from "react";
 
 const style = {
 	position: "absolute",
@@ -21,15 +22,17 @@ const style = {
 };
 
 export default function TaskModal() {
-	const { taskData, setTaskData, t_HandleSubmit } = useTaskFormData();
-	const [open, setOpen] = React.useState(false);
+	const { taskData, setTaskData } = useTaskFormData();
+	const { createTask } = useAllTaskData();
+
+	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => {
 		setOpen(false);
 	};
 
-	const handleSubmit = (e) => {
-		t_HandleSubmit(e);
+	const handleSubmit = async (e) => {
+		await createTask();
 		handleClose(e);
 	};
 

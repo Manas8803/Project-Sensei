@@ -6,6 +6,7 @@ import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import classes from "./ProjectModal.module.css";
 import {
+	useAllProjectData,
 	useProjectFormData,
 } from "../../../ContextProvider";
 
@@ -23,12 +24,13 @@ const style = {
 };
 
 export default function ProjectModal() {
-	const { projectData, setProjectData, p_HandleSubmit } = useProjectFormData();
+	const { projectData, setProjectData } = useProjectFormData();
+	const { createProject } = useAllProjectData();
 	const [open, setOpen] = React.useState(false);
 
 	const handleOpen = () => setOpen(true);
-	const handleClose = (e) => {
-		p_HandleSubmit(e);
+	const handleClose = async (e) => {
+		await createProject();
 		setOpen(false);
 	};
 	const handleChange = (event) => {

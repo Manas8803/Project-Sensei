@@ -25,7 +25,7 @@ const style = {
 };
 
 export default function ConfirmDeleteModal(props) {
-	const { getAllProjects, deleteProject } = useAllProjectData();
+	const { deleteProject } = useAllProjectData();
 	const { p_id } = usePID();
 	const { setAllt_Data, deleteTask, getAllTasks } = useAllTaskData();
 
@@ -41,9 +41,6 @@ export default function ConfirmDeleteModal(props) {
 			//& Delete project :
 			await deleteProject(props.id);
 
-			//& Get All Projects :
-			await getAllProjects();
-
 			//& Set All Task :
 			if (p_id === props.id) {
 				setAllt_Data([]);
@@ -51,9 +48,6 @@ export default function ConfirmDeleteModal(props) {
 		} else if (props.name === "task") {
 			//& Delete task :
 			await deleteTask(props.id);
-
-			//& Get All tasks :
-			await getAllTasks();
 		}
 		handleClose(e);
 	};

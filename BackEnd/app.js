@@ -14,6 +14,9 @@ const ProjectRouter = require("./Routes/project");
 const TaskRouter = require("./Routes/task");
 
 //^ middleware
+app.get("/", (req, res) => {
+	res.end("Welcome");
+});
 app.use(express.json());
 app.use(cors());
 app.use("/user", UserRouter); //& Always use this middleware function first before notFound route

@@ -7,8 +7,9 @@ export const AllProjectContext = createContext();
 export const AllTaskContext = createContext();
 export const ProjectFormContext = createContext();
 export const TaskFormContext = createContext();
-export const PIDContext = createContext();
 export const IsAuthenticatedContext = createContext();
+export const PIDContext = createContext();
+export const LoadingContext = createContext();
 
 export function useAllProjectData() {
 	return useContext(AllProjectContext);
@@ -30,20 +31,28 @@ export function usePID() {
 	return useContext(PIDContext);
 }
 
-//* Token Retrieval :
-const token = localStorage.getItem("token");
-const header = {
-	Authorization: `Bearer ${token}`,
-};
+export function useLoading() {
+	return useContext(LoadingContext);
+}
 
 export default function ContextProvider({ children }) {
+	//* Token Retrieval :
+	const token = localStorage.getItem("token");
+	const header = {
+		Authorization: `Bearer ${token}`,
+	};
+
+	//* Loader :
+	const [projectLoader, setProjectLoader] = useState(false);
+	const [taskLoader, setTaskLoader] = useState(false);
+
 	//* All project/task state :
 	const [allp_Data, setAllp_Data] = useState([]);
 	const [allt_Data, setAllt_Data] = useState([]);
 
 	//* Project/Task form state :
 	const [projectData, setProjectData] = useState({
-		name: "",
+		name: undefined,
 		description: "",
 		_id: "",
 	});
@@ -62,7 +71,7 @@ export default function ContextProvider({ children }) {
 	const getAllProjects = async () => {
 		try {
 			const { data } = await axios.get(
-				"http://localhost:3000/user/login/projects/",
+				"https://project-sensei.onrender.com/user/login/projects/",
 				{ headers: header }
 			);
 			setAllp_Data(data.project);
@@ -73,21 +82,26 @@ export default function ContextProvider({ children }) {
 
 	const createProject = async () => {
 		try {
-			await axios.post(
-				"http://localhost:3000/user/login/projects/",
+			const { data } = await axios.post(
+				"https://project-sensei.onrender.com/user/login/projects/",
 				projectData,
 				{ headers: header }
 			);
+			setAllp_Data((prev) => [...prev, data.project]);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
 	const deleteProject = async (id) => {
+		setAllp_Data(allp_Data.filter((project) => project._id !== id));
 		try {
-			await axios.delete(`http://localhost:3000/user/login/projects/${id}`, {
-				headers: header,
-			});
+			await axios.delete(
+				`https://project-sensei.onrender.com/user/login/projects/${id}`,
+				{
+					headers: header,
+				}
+			);
 		} catch (error) {
 			console.log(error);
 		}
@@ -97,7 +111,7 @@ export default function ContextProvider({ children }) {
 	const getAllTasks = async () => {
 		try {
 			const { data } = await axios.get(
-				`http://localhost:3000/user/login/projects/${p_id}/tasks/`,
+				`https://project-sensei.onrender.com/user/login/projects/${p_id}/tasks/`,
 				{ headers: header }
 			);
 			setAllt_Data(data.tasks);
@@ -118,20 +132,22 @@ export default function ContextProvider({ children }) {
 		}
 
 		try {
-			await axios.post(
-				`http://localhost:3000/user/login/projects/${p_id}/tasks/`,
+			const { data } = await axios.post(
+				`https://project-sensei.onrender.com/user/login/projects/${p_id}/tasks/`,
 				taskData,
 				{ headers: header }
 			);
+			setAllt_Data((prev) => [...prev, data.task]);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
 	const deleteTask = async (t_id) => {
+		setAllt_Data(allt_Data.filter((task) => task._id !== t_id));
 		try {
 			await axios.delete(
-				`http://localhost:3000/user/login/projects/${p_id}/tasks/${t_id}`,
+				`https://project-sensei.onrender.com/user/login/projects/${p_id}/tasks/${t_id}`,
 				{ headers: header }
 			);
 		} catch (error) {
@@ -142,7 +158,7 @@ export default function ContextProvider({ children }) {
 	const updateTask = async (t_id, props) => {
 		try {
 			await axios.patch(
-				`http://localhost:3000/user/login/projects/${p_id}/tasks/${t_id}`,
+				`https://project-sensei.onrender.com/user/login/projects/${p_id}/tasks/${t_id}`,
 				props,
 				{ headers: header }
 			);
@@ -151,42 +167,22 @@ export default function ContextProvider({ children }) {
 		}
 	};
 
-	//^ For Modals :
-	const p_HandleSubmit = async (e) => {
-		e.preventDefault();
-
-		//? Api Calls
-		//&  1. Create project
-		await createProject();
-		//&  2. Get all projects
-		getAllProjects();
-	};
-
-	const t_HandleSubmit = async (e) => {
-		e.preventDefault();
-		//? Api Calls
-		//&  1. Create task
-		await createTask();
-		//&  2. Get all tasks
-		getAllTasks();
-	};
-
-	useEffect(() => {
-		async function fetchProjects() {
-			await getAllProjects();
-		}
-		fetchProjects();
-	}, []);
-
 	return (
 		<>
 			<AllProjectContext.Provider
-				value={{ allp_Data, setAllp_Data, getAllProjects, deleteProject }}
+				value={{
+					allp_Data,
+					setAllp_Data,
+					getAllProjects,
+					createProject,
+					deleteProject,
+				}}
 			>
 				<AllTaskContext.Provider
 					value={{
 						allt_Data,
 						setAllt_Data,
+						createTask,
 						getAllTasks,
 						deleteTask,
 						updateTask,
@@ -196,20 +192,25 @@ export default function ContextProvider({ children }) {
 						value={{
 							projectData,
 							setProjectData,
-							p_HandleSubmit,
-							createProject,
 						}}
 					>
 						<TaskFormContext.Provider
 							value={{
 								taskData,
 								setTaskData,
-								t_HandleSubmit,
-								createTask,
 							}}
 						>
 							<PIDContext.Provider value={{ p_id, setP_id }}>
-								{children}
+								<LoadingContext.Provider
+									value={{
+										projectLoader,
+										setProjectLoader,
+										taskLoader,
+										setTaskLoader,
+									}}
+								>
+									{children}
+								</LoadingContext.Provider>
 							</PIDContext.Provider>
 						</TaskFormContext.Provider>
 					</ProjectFormContext.Provider>
