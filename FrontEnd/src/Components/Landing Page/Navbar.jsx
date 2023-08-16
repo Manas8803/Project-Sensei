@@ -32,7 +32,7 @@ export default function ResponsiveAppBar() {
 							display: { xs: "none", md: "flex" },
 							fontFamily: "",
 							fontWeight: 700,
-							letterSpacing: ".4rem",
+							letterSpacing: ".35rem",
 							color: "Beige",
 							textDecoration: "none",
 						}}

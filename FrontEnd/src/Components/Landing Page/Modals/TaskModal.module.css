@@ -32,12 +32,32 @@
 .buttonT {
   padding: 8px 16px;
   margin-right: 2rem;
-  background-color: #4caf50;
   color: white;
-  border: none;
   border-radius: 4px;
   cursor: pointer;
   margin-top: 16px;
+}
+
+.buttonP{
+  border: 2px solid #1876D0;
+  background-color: #1876D0;
+}
+
+.buttonC {
+	background-color: white;
+  color: #1876D0;
+  border: 2px solid #1876D0;
+}
+
+.buttonCD {
+	background-color: white;
+  color: #ED5E68;
+  border: 2px solid #ED5E68;
+}
+
+.buttonD{
+  border: 2px solid #ED5E68;
+  background-color: #ED5E68;
 }
 
 .imgEdit {

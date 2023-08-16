@@ -13,8 +13,9 @@ const style = {
 	left: "50%",
 	transform: "translate(-50%, -50%)",
 	width: 400,
+	borderRadius: "10px",
+	border: "2px solid #1876D0",
 	bgcolor: "background.paper",
-	border: "2px solid #000",
 	boxShadow: 24,
 	p: 4,
 };
@@ -23,7 +24,7 @@ export default function TaskModal() {
 	const { taskData, setTaskData, t_HandleSubmit } = useTaskFormData();
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
-	const handleClose = (e) => {
+	const handleClose = () => {
 		setOpen(false);
 	};
 
@@ -80,7 +81,7 @@ export default function TaskModal() {
 								className={classes.selectT}
 								name="taskStatus"
 								id="pet-select"
-								value={taskData.taskStaus}
+								value={taskData.taskStatus}
 								onChange={handleChange}
 								required
 							>
@@ -104,10 +105,16 @@ export default function TaskModal() {
 								/>
 							</div>
 						</form>
-						<button className={classes.buttonT} onClick={handleClose}>
+						<button
+							className={`${classes.buttonT} ${classes.buttonC}`}
+							onClick={handleClose}
+						>
 							Cancel
 						</button>
-						<button className={classes.buttonT} onClick={handleSubmit}>
+						<button
+							className={`${classes.buttonT} ${classes.buttonP}`}
+							onClick={handleSubmit}
+						>
 							Submit
 						</button>
 					</Box>

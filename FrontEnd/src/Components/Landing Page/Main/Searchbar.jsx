@@ -2,8 +2,6 @@ import classes from "./Searchbar.module.css";
 import TaskModal from "../Modals/TaskModal";
 import { useState } from "react";
 
-import PropTypes from "prop-types";
-
 const Searchbar = ({ onSearchChange }) => {
 	const [query, setQuery] = useState("");
 
@@ -29,9 +27,6 @@ const Searchbar = ({ onSearchChange }) => {
 			</div>
 		</div>
 	);
-};
-Searchbar.propTypes = {
-	onSearchChange: PropTypes.func.isRequired,
 };
 
 export default Searchbar;

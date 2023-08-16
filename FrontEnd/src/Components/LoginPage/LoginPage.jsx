@@ -1,5 +1,5 @@
 import "./LoginPage.css";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import userIcon from "../../assets/user.png";
 import { UserContext } from "../../App";
 let LoginPage;

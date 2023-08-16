@@ -3,7 +3,6 @@ const { BadRequestError } = require("../Errors/index");
 
 const getAllTasks = async (req, res) => {
 	const { p_id } = req.params;
-	console.log(p_id);
 
 	const allTasks = await Tasks.find({ p_id: p_id });
 	res.status(201).json({ status: 1, tasks: allTasks });

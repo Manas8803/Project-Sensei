@@ -2,7 +2,6 @@ import classes from "./Card.module.css";
 import EditTModal from "../Modals/EditTModal";
 import ConfirmDeleteModal from "../Modals/ConfirmDeleteModal";
 const Card = (props) => {
-	console.log(props.id);
 	return (
 		<div className={classes.card} key={props.id}>
 			<div className={classes.content}>
@@ -11,7 +10,12 @@ const Card = (props) => {
 			</div>
 
 			<div className={classes.btnC}>
-				<EditTModal />
+				<EditTModal
+					name={props.name}
+					id={props.id}
+					description={props.description}
+					taskStatus={props.status}
+				/>
 				<ConfirmDeleteModal id={props.id} name="task" />
 			</div>
 		</div>

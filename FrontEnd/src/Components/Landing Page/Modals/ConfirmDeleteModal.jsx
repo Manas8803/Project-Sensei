@@ -17,8 +17,9 @@ const style = {
 	left: "50%",
 	transform: "translate(-50%, -50%)",
 	width: 400,
+	borderRadius: "10px",
+	border: "2px solid #ED5E68",
 	bgcolor: "background.paper",
-	border: "2px solid #000",
 	boxShadow: 24,
 	p: 4,
 };
@@ -75,14 +76,16 @@ export default function ConfirmDeleteModal(props) {
 			>
 				<Fade in={open}>
 					<Box sx={style}>
-						<p>Are you sure you want to delete this {props.name} ??</p>
-						<button className={classes.buttonT} onClick={handleClose}>
+						<p>Are you sure you want to delete this {props.name} ?</p>
+						<button
+							className={`${classes.buttonT} ${classes.buttonCD}`}
+							onClick={handleClose}
+						>
 							Cancel
 						</button>
 						<button
-							className={classes.buttonT}
+							className={`${classes.buttonT} ${classes.buttonD}`}
 							onClick={handleSubmit}
-							style={{ backgroundColor: "#ED5E68" }}
 						>
 							Delete
 						</button>

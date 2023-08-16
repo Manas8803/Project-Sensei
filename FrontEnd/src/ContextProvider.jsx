@@ -116,7 +116,6 @@ export default function ContextProvider({ children }) {
 			alert("Please select a project to create a new task.");
 			return;
 		}
-		console.log(p_id);
 
 		try {
 			await axios.post(
@@ -133,6 +132,18 @@ export default function ContextProvider({ children }) {
 		try {
 			await axios.delete(
 				`http://localhost:3000/user/login/projects/${p_id}/tasks/${t_id}`,
+				{ headers: header }
+			);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const updateTask = async (t_id, props) => {
+		try {
+			await axios.patch(
+				`http://localhost:3000/user/login/projects/${p_id}/tasks/${t_id}`,
+				props,
 				{ headers: header }
 			);
 		} catch (error) {
@@ -173,7 +184,13 @@ export default function ContextProvider({ children }) {
 				value={{ allp_Data, setAllp_Data, getAllProjects, deleteProject }}
 			>
 				<AllTaskContext.Provider
-					value={{ allt_Data, setAllt_Data, getAllTasks, deleteTask }}
+					value={{
+						allt_Data,
+						setAllt_Data,
+						getAllTasks,
+						deleteTask,
+						updateTask,
+					}}
 				>
 					<ProjectFormContext.Provider
 						value={{

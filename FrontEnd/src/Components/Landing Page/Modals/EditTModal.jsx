@@ -4,36 +4,44 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import classes from "./TaskModal.module.css";
-import { useTaskFormData } from "../../../ContextProvider";
+import { useAllTaskData } from "../../../ContextProvider";
 import logo from "../../../assets/edit-button-svgrepo-com.svg";
+import { useState } from "react";
 const style = {
 	position: "absolute",
 	top: "50%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",
-	width: 400,
+	width: 350,
+	borderRadius: "10px",
+	border: "2px solid #1876D0",
 	bgcolor: "background.paper",
-	border: "2px solid #000",
 	boxShadow: 24,
 	p: 4,
 };
 
-export default function EditTModal() {
-	const { taskData, setTaskData, t_HandleSubmit } = useTaskFormData();
+export default function EditTModal(props) {
+	const { updateTask, getAllTasks } = useAllTaskData();
+	const [e_taskData, setE_TaskData] = useState(props);
+
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = (e) => {
 		setOpen(false);
 	};
 
-	const handleSubmit = (e) => {
-		t_HandleSubmit(e);
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		//& Edit Task :
+		await updateTask(props.id, e_taskData);
+		//& Get All Tasks :
+		await getAllTasks();
 		handleClose(e);
 	};
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
-		setTaskData((prev) => ({
+		setE_TaskData((prev) => ({
 			...prev,
 			[name]: value,
 		}));
@@ -66,7 +74,7 @@ export default function EditTModal() {
 									className={classes.inputT}
 									type="text"
 									name="name"
-									value={taskData.name}
+									value={e_taskData.name}
 									onChange={handleChange}
 									required
 								/>
@@ -77,7 +85,7 @@ export default function EditTModal() {
 								className={classes.selectT}
 								name="taskStatus"
 								id="pet-select"
-								value={taskData.taskStaus}
+								value={e_taskData.taskStatus}
 								onChange={handleChange}
 								required
 							>
@@ -95,16 +103,22 @@ export default function EditTModal() {
 									className={classes.textareaT}
 									type="text"
 									name="description"
-									value={taskData.description}
+									value={e_taskData.description}
 									onChange={handleChange}
 									id="description"
 								/>
 							</div>
 						</form>
-						<button className={classes.buttonT} onClick={handleClose}>
+						<button
+							className={`${classes.buttonT} ${classes.buttonC}`}
+							onClick={handleClose}
+						>
 							Cancel
 						</button>
-						<button className={classes.buttonT} onClick={handleSubmit}>
+						<button
+							className={`${classes.buttonT} ${classes.buttonP}`}
+							onClick={handleSubmit}
+						>
 							Submit
 						</button>
 					</Box>
