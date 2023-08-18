@@ -37,6 +37,7 @@ function App() {
 				localStorage.setItem("token", data.token);
 				setIsAuthenticated(true);
 			} catch (err) {
+				console.log(err);
 				const { status } = err.response;
 				if (status == 400)
 					alert("The provided email is not registered.\nPlease Register");

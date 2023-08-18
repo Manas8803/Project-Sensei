@@ -18,7 +18,7 @@ export default function ResponsiveAppBar() {
 	};
 
 	return (
-		<AppBar sx={{ display: "block" }}>
+		<AppBar sx={{ display: "block", backgroundColor: "#3B9D97" }}>
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
 					<AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />

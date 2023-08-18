@@ -1,7 +1,12 @@
+body {
+	background-color: #e6f4f1;
+	font-family: "Poppins";
+}
+
 .gen {
-  margin-top: 69px;
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  margin-bottom: -1vh;
-  height: 100vh;
+	margin-top: 69px;
+	display: grid;
+	grid-template-columns: 1fr 4fr;
+	margin-bottom: -1vh;
+	height: 100vh;
 }

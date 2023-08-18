@@ -13,9 +13,8 @@ import {
 
 const ProjectBar = () => {
 	const { allp_Data, getAllProjects } = useAllProjectData();
-	const { projectLoader, setProjectLoader, taskLoader, setTaskLoader } =
-		useLoading();
-	const { setAllt_Data } = useAllTaskData();
+	const { projectLoader, setProjectLoader, setTaskLoader } = useLoading();
+	const { getAllTasks } = useAllTaskData();
 	const { setP_id } = usePID();
 
 	const [selectedItem, setSelectedItem] = useState(null);
@@ -31,22 +30,10 @@ const ProjectBar = () => {
 	async function handleClick(event, index) {
 		const { id } = event.target;
 		if (!id) return;
-		setSelectedItem(index);
 		setP_id(id);
+		setSelectedItem(index);
 		setTaskLoader(true);
-		const token = localStorage.getItem("token");
-		const header = {
-			Authorization: `Bearer ${token}`,
-		};
-		try {
-			const { data } = await axios.get(
-				`https://project-sensei.onrender.com/user/login/projects/${id}/tasks`,
-				{ headers: header }
-			);
-			setAllt_Data(data.tasks);
-		} catch (error) {
-			console.log(error);
-		}
+		await getAllTasks(id);
 		setTaskLoader(false);
 	}
 

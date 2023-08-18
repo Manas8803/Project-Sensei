@@ -1,7 +1,10 @@
 const User = require("../Models/users");
-const { UserConflictError, BadRequestError,ForbiddenError } = require("../Errors/index");
+const {
+	UserConflictError,
+	BadRequestError,
+	ForbiddenError,
+} = require("../Errors/index");
 const jwt = require("jsonwebtoken");
-
 
 const getAllUsers = async (req, res) => {
 	const allUsers = await User.find({});
@@ -50,4 +53,14 @@ const createUser = async (req, res) => {
 	res.status(200).json({ status: 1, token: token, name: name });
 };
 
-module.exports = { getAllUsers, createUser, getUser };
+const deleteUser = async (req, res) => {
+	const { u_id } = req.params;
+	const user = await User.findByIdAndDelete(u_id);
+	if (!user) {
+		throw new BadRequestError("User not found");
+	}
+
+	res.status(200).json({ status: 1, user: user });
+};
+
+module.exports = { getAllUsers, createUser, getUser, deleteUser };

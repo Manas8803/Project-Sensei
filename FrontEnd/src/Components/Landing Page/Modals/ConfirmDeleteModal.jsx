@@ -27,11 +27,11 @@ const style = {
 export default function ConfirmDeleteModal(props) {
 	const { deleteProject } = useAllProjectData();
 	const { p_id } = usePID();
-	const { setAllt_Data, deleteTask, getAllTasks } = useAllTaskData();
+	const { setAllt_Data, deleteTask } = useAllTaskData();
 
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
-	const handleClose = (e) => {
+	const handleClose = () => {
 		setOpen(false);
 	};
 

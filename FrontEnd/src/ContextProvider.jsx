@@ -1,12 +1,10 @@
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext } from "react";
 import { useState } from "react";
 import axios from "axios";
 import React from "react";
 
 export const AllProjectContext = createContext();
 export const AllTaskContext = createContext();
-export const ProjectFormContext = createContext();
-export const TaskFormContext = createContext();
 export const IsAuthenticatedContext = createContext();
 export const PIDContext = createContext();
 export const LoadingContext = createContext();
@@ -21,10 +19,6 @@ export function useAllTaskData() {
 
 export function useProjectFormData() {
 	return useContext(ProjectFormContext);
-}
-
-export function useTaskFormData() {
-	return useContext(TaskFormContext);
 }
 
 export function usePID() {
@@ -50,20 +44,6 @@ export default function ContextProvider({ children }) {
 	const [allp_Data, setAllp_Data] = useState([]);
 	const [allt_Data, setAllt_Data] = useState([]);
 
-	//* Project/Task form state :
-	const [projectData, setProjectData] = useState({
-		name: undefined,
-		description: "",
-		_id: "",
-	});
-
-	const [taskData, setTaskData] = useState({
-		name: "",
-		description: "",
-		taskStatus: "",
-		_id: "",
-	});
-
 	//* PID state :
 	const [p_id, setP_id] = useState(undefined);
 
@@ -80,7 +60,9 @@ export default function ContextProvider({ children }) {
 		}
 	};
 
-	const createProject = async () => {
+	const createProject = async (projectData) => {
+		const { name } = projectData;
+		if (!name) alert("Please provide with a name for the project.");
 		try {
 			const { data } = await axios.post(
 				"https://project-sensei.onrender.com/user/login/projects/",
@@ -108,7 +90,7 @@ export default function ContextProvider({ children }) {
 	};
 
 	//* For Tasks :
-	const getAllTasks = async () => {
+	const getAllTasks = async (p_id) => {
 		try {
 			const { data } = await axios.get(
 				`https://project-sensei.onrender.com/user/login/projects/${p_id}/tasks/`,
@@ -120,7 +102,7 @@ export default function ContextProvider({ children }) {
 		}
 	};
 
-	const createTask = async () => {
+	const createTask = async (taskData) => {
 		const { name } = taskData;
 		if (!name) {
 			alert("Please provide sufficient information to create a new task.");
@@ -156,6 +138,8 @@ export default function ContextProvider({ children }) {
 	};
 
 	const updateTask = async (t_id, props) => {
+		setAllt_Data(allt_Data.filter((task) => task._id !== t_id));
+		setAllt_Data((prev) => [...prev, props]);
 		try {
 			await axios.patch(
 				`https://project-sensei.onrender.com/user/login/projects/${p_id}/tasks/${t_id}`,
@@ -188,32 +172,18 @@ export default function ContextProvider({ children }) {
 						updateTask,
 					}}
 				>
-					<ProjectFormContext.Provider
-						value={{
-							projectData,
-							setProjectData,
-						}}
-					>
-						<TaskFormContext.Provider
+					<PIDContext.Provider value={{ p_id, setP_id }}>
+						<LoadingContext.Provider
 							value={{
-								taskData,
-								setTaskData,
+								projectLoader,
+								setProjectLoader,
+								taskLoader,
+								setTaskLoader,
 							}}
 						>
-							<PIDContext.Provider value={{ p_id, setP_id }}>
-								<LoadingContext.Provider
-									value={{
-										projectLoader,
-										setProjectLoader,
-										taskLoader,
-										setTaskLoader,
-									}}
-								>
-									{children}
-								</LoadingContext.Provider>
-							</PIDContext.Provider>
-						</TaskFormContext.Provider>
-					</ProjectFormContext.Provider>
+							{children}
+						</LoadingContext.Provider>
+					</PIDContext.Provider>
 				</AllTaskContext.Provider>
 			</AllProjectContext.Provider>
 		</>

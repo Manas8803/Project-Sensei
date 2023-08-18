@@ -5,7 +5,7 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import classes from "./TaskModal.module.css";
-import { useAllTaskData, useTaskFormData } from "../../../ContextProvider";
+import { useAllTaskData } from "../../../ContextProvider";
 import { useState } from "react";
 
 const style = {
@@ -15,14 +15,20 @@ const style = {
 	transform: "translate(-50%, -50%)",
 	width: 400,
 	borderRadius: "10px",
-	border: "2px solid #1876D0",
+	border: "2px solid #3A9D96",
 	bgcolor: "background.paper",
 	boxShadow: 24,
 	p: 4,
 };
 
 export default function TaskModal() {
-	const { taskData, setTaskData } = useTaskFormData();
+	const [taskData, setTaskData] = useState({
+		name: "",
+		description: "",
+		taskStatus: "",
+		_id: "",
+	});
+
 	const { createTask } = useAllTaskData();
 
 	const [open, setOpen] = useState(false);
@@ -32,7 +38,11 @@ export default function TaskModal() {
 	};
 
 	const handleSubmit = async (e) => {
-		await createTask();
+		const { name, taskStatus } = taskData;
+		if (!name) return alert("Please enter a name for the task");
+		if (!taskStatus)
+			return alert("Please define a status of completion for this task");
+		await createTask(taskData);
 		handleClose(e);
 	};
 
@@ -46,7 +56,10 @@ export default function TaskModal() {
 
 	return (
 		<>
-			<Button onClick={handleOpen} sx={{ backgroundColor: "white" }}>
+			<Button
+				onClick={handleOpen}
+				sx={{ backgroundColor: "white", color: "#3A9D96" }}
+			>
 				Add Task
 			</Button>
 			<Modal

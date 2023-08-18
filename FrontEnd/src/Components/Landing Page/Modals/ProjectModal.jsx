@@ -5,10 +5,8 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import classes from "./ProjectModal.module.css";
-import {
-	useAllProjectData,
-	useProjectFormData,
-} from "../../../ContextProvider";
+import { useAllProjectData } from "../../../ContextProvider";
+import { useState } from "react";
 
 const style = {
 	position: "absolute",
@@ -18,19 +16,26 @@ const style = {
 	width: 350,
 	borderRadius: "10px",
 	bgcolor: "background.paper",
-	border: "2px solid #1876D0",
+	border: "2px solid #3A9D96",
 	boxShadow: 24,
 	p: 4,
 };
 
 export default function ProjectModal() {
-	const { projectData, setProjectData } = useProjectFormData();
+	const [projectData, setProjectData] = useState({
+		name: undefined,
+		description: "",
+		_id: "",
+	});
+
 	const { createProject } = useAllProjectData();
-	const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = useState(false);
 
 	const handleOpen = () => setOpen(true);
-	const handleClose = async (e) => {
-		await createProject();
+	const handleClose = async () => {
+		const { name } = projectData;
+		if (!name) return alert("Please enter a name for the project");
+		await createProject(projectData);
 		setOpen(false);
 	};
 	const handleChange = (event) => {

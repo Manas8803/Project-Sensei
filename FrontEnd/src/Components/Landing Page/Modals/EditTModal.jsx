@@ -14,14 +14,15 @@ const style = {
 	transform: "translate(-50%, -50%)",
 	width: 350,
 	borderRadius: "10px",
-	border: "2px solid #1876D0",
+	border: "2px solid #3A9D96",
 	bgcolor: "background.paper",
 	boxShadow: 24,
 	p: 4,
 };
 
 export default function EditTModal(props) {
-	const { updateTask, getAllTasks } = useAllTaskData();
+	const { updateTask } = useAllTaskData();
+
 	const [e_taskData, setE_TaskData] = useState(props);
 
 	const [open, setOpen] = React.useState(false);
@@ -34,8 +35,6 @@ export default function EditTModal(props) {
 		e.preventDefault();
 		//& Edit Task :
 		await updateTask(props.id, e_taskData);
-		//& Get All Tasks :
-		await getAllTasks();
 		handleClose(e);
 	};
 

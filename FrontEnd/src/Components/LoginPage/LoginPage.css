@@ -64,7 +64,7 @@
 
 .inputField:focus {
 	outline: none;
-	border-bottom: 3.5px solid #1876d1;
+	border-bottom: 3.5px solid #3A9D96;
 }
 
 .inputField::placeholder {
@@ -76,8 +76,8 @@
 #button {
 	position: relative;
 	width: 100%;
-	border: 2px solid #1876d1;
-	background-color: #1876d1;
+	border: 2px solid #3A9D96;
+	background-color: #3A9D96;
 	height: clamp(3vw, 3vw, 4vw);
 	color: white;
 	font-size: 1em;

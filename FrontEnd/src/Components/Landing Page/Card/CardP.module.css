@@ -15,14 +15,14 @@
 
 .card:hover {
   transition: 0.3s ease-in-out;
-  background-color: #d3e4fa;
+  background-color: #D9F0ED;
   border-radius: 16px;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   margin-bottom: 6%;
 }
 
 .selected {
-  background-color: #6AAAFF;
+  background-color: #2DC194;
   border: 1px solid rgba(255, 255, 254);
   cursor: pointer;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
