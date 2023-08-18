@@ -32,11 +32,12 @@ export default function ProjectModal() {
 	const [open, setOpen] = useState(false);
 
 	const handleOpen = () => setOpen(true);
-	const handleClose = async () => {
+	const handleClose = () => setOpen(false);
+	const handleSubmit = async () => {
 		const { name } = projectData;
 		if (!name) return alert("Please enter a name for the project");
 		await createProject(projectData);
-		setOpen(false);
+		handleClose();
 	};
 	const handleChange = (event) => {
 		const { name, value } = event.target;
@@ -111,7 +112,7 @@ export default function ProjectModal() {
 						</button>
 						<button
 							className={`${classes.button} ${classes.buttonP}`}
-							onClick={handleClose}
+							onClick={handleSubmit}
 						>
 							Submit
 						</button>
