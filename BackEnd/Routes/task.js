@@ -10,9 +10,9 @@ const {
 
 router.use(express.json());
 
-router.get("/tasks", authMiddleware, getAllTasks);
-router.post("tasks", authMiddleware, createTask);
-router.patch("tasks/:t_id", authMiddleware, updateTask);
-router.delete("tasks/:t_id", authMiddleware, deleteTask);
+router.get("/", authMiddleware, getAllTasks);
+router.post("/", authMiddleware, createTask);
+router.patch("/:t_id", authMiddleware, updateTask);
+router.delete("/:t_id", authMiddleware, deleteTask);
 
 module.exports = router;

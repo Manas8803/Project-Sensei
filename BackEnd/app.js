@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cors());
 app.use("/user", UserRouter); //& Always use this middleware function first before notFound route
 app.use("/user/login/projects", ProjectRouter);
-app.use("/user/login/projects/:p_id", TaskRouter);
+app.use("/user/login/projects/:p_id/tasks", TaskRouter);
 app.use(notFound);
 
 require("dotenv").config();
