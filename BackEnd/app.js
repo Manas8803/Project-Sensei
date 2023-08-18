@@ -20,7 +20,8 @@ app.get("/", (req, res) => {
 app.use(express.json());
 app.use(cors());
 app.use("/user", UserRouter); //& Always use this middleware function first before notFound route
-app.use("/user/login/projects", ProjectRouter, TaskRouter);	
+app.use("/user/login/projects", ProjectRouter, TaskRouter);
+app.use("/user/login/projects/:p_id", TaskRouter);
 app.use(notFound);
 
 require("dotenv").config();
