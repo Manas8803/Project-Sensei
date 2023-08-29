@@ -2,11 +2,16 @@ import "./LoginPage.css";
 import { useContext } from "react";
 import userIcon from "../../assets/user.png";
 import { UserContext } from "../../App";
-let LoginPage;
 
-LoginPage = () => {
-	const { user, handleChange, handleSubmit, pageSwitcher, setPageSwitcher } =
-		useContext(UserContext);
+const LoginPage = () => {
+	const {
+		user,
+		handleChange,
+		handleSubmit,
+		pageSwitcher,
+		setPageSwitcher,
+		loginLoader,
+	} = useContext(UserContext);
 
 	//* pageSwitcher = true -> Register
 	//* pageSwitcher = false -> Login
@@ -68,7 +73,15 @@ LoginPage = () => {
 					/>
 				</div>
 				<button id="button" type="submit">
-					{pageSwitcher ? `Sign Up` : "Login"}
+					{loginLoader ? (
+						<div className="spinner_container">
+							<div className="spinner"></div>
+						</div>
+					) : pageSwitcher ? (
+						`Sign Up`
+					) : (
+						"Login"
+					)}
 				</button>
 				<div className="signupContainer">
 					<a onClick={pageSwitcherHandler}>

@@ -2,7 +2,6 @@ import CardP from "../Card/CardP";
 import classes from "./ProjectBar.module.css";
 import React from "react";
 import { useState } from "react";
-import axios from "axios";
 import { useEffect } from "react";
 import {
 	useAllProjectData,
@@ -43,7 +42,9 @@ const ProjectBar = () => {
 				<h1 className={classes.colName}>Project List</h1>
 			</div>
 			{projectLoader ? (
-				<h2 style={{ textAlign: "center" }}>FETCHING PROJECTS..</h2>
+				<div className={classes.spinner_container}>
+					<div className={classes.spinner}></div>
+				</div>
 			) : allp_Data[0]?.name ? (
 				allp_Data.map((p_data, index) => {
 					return (

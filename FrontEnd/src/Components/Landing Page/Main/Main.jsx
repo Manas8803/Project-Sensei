@@ -16,16 +16,8 @@ const Main = () => {
 		<div className={classes.bg}>
 			<Searchbar onSearchChange={handleSearchChange}></Searchbar>
 			{taskLoader ? (
-				<div
-					style={{
-						display: "flex",
-						justifyContent: "center",
-						alignItems: "center",
-						height: "75%",
-						fontSize: "2.5rem",
-					}}
-				>
-					<h1>Loading Tasks...</h1>
+				<div className={classes.spinner_container}>
+					<div className={classes.spinner}></div>
 				</div>
 			) : allt_Data[0]?.name ? (
 				<div className={classes.subgen}>

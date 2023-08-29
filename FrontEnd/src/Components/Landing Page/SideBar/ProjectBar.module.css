@@ -14,3 +14,38 @@
 .colName {
   text-align: center;
 }
+
+.spinner_container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+   width: 56px;
+   height: 56px;
+   display: grid;
+   animation: spinner-plncf9 4s infinite;
+}
+
+.spinner::before,
+.spinner::after {
+   content: "";
+   grid-area: 1/1;
+   border: 9px solid;
+   border-radius: 50%;
+   border-color: #3a9d96 #3a9d96 #0000 #0000;
+   mix-blend-mode: darken;
+   animation: spinner-plncf9 1s infinite linear;
+}
+
+.spinner::after {
+   border-color: #0000 #0000 #c8f3ee #c8f3ee;
+   animation-direction: reverse;
+}
+
+@keyframes spinner-plncf9 {
+   100% {
+      transform: rotate(1.2turn);
+   }
+}

@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import LandingPage from "./Components/Landing Page/LandingPage";
 import LoginPage from "./Components/LoginPage/LoginPage";
+import ContextProvider from "./ContextProvider";
 
 export const UserContext = React.createContext();
 
@@ -15,6 +16,7 @@ function App() {
 
 	const [pageSwitcher, setPageSwitcher] = useState(false);
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [loginLoader, setLoginLoader] = useState(false);
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
@@ -28,6 +30,7 @@ function App() {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		setLoginLoader(true);
 		if (!pageSwitcher) {
 			try {
 				const { data } = await axios.post(
@@ -57,6 +60,7 @@ function App() {
 				if (status == 409) alert("Email is already registered.\nPlease Login");
 			}
 		}
+		setLoginLoader(false);
 	};
 
 	return (
@@ -68,9 +72,13 @@ function App() {
 				pageSwitcher,
 				setPageSwitcher,
 				setIsAuthenticated,
+				loginLoader,
+				setLoginLoader,
 			}}
 		>
-			{isAuthenticated ? <LandingPage /> : <LoginPage />}
+			<ContextProvider>
+				{isAuthenticated ? <LandingPage /> : <LoginPage />}
+			</ContextProvider>
 		</UserContext.Provider>
 	);
 }

@@ -49,16 +49,7 @@ export default function ProjectModal() {
 
 	return (
 		<div>
-			<Button
-				sx={{
-					color: "white",
-					position: "absolute",
-					top: "25%",
-					left: "83%",
-				}}
-				className="modal-trigger"
-				onClick={handleOpen}
-			>
+			<Button className={classes.newPrBtn} onClick={handleOpen}>
 				New Project
 			</Button>
 			<Modal

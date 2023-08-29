@@ -9,6 +9,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import ProjectModal from "./Modals/ProjectModal";
 import { UserContext } from "../../App";
 import { useContext } from "react";
+import classes from "./Navbar.module.css";
 
 export default function ResponsiveAppBar() {
 	const { setIsAuthenticated } = useContext(UserContext);
@@ -18,7 +19,7 @@ export default function ResponsiveAppBar() {
 	};
 
 	return (
-		<AppBar sx={{ display: "block", backgroundColor: "#3B9D97" }}>
+		<AppBar className={classes.navbar}>
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
 					<AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -52,10 +53,7 @@ export default function ResponsiveAppBar() {
 							key="Logout"
 							onClick={logout}
 							sx={{
-								my: 2,
 								color: "white",
-								display: "block",
-								marginRight: "20px",
 							}}
 						>
 							Logout
